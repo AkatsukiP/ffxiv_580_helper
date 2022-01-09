@@ -50,9 +50,12 @@ export default defineComponent({
       newStuffNameJP: ['メンピサン材', 'ルナアダマンインゴット', 'ロジウムインゴット', 'アミノドンレザー', 'ゴールドシルク'],
       newStuffNameEN: ['Mempisang Lumber', 'Lunar Adamantite Ingot', 'Rhodium Ingot', 'Amynodon Leather', 'Golden Silk'],
       oldStuffNameJP: ['インテグラル材', 'コンドライトインゴット', 'スタークォーツ', 'オピオタウロスレザー', 'カエアンビロード'],
+      oldStuffNameEN: ['Integral Lumber', 'Chondrite Ingot', 'Star Quartz', 'Ophiotauros Leather', 'AR-Caean Velvet'],
       alkahestNameJP: ['剛力の幻水G6','眼力の幻水G6','活力の幻水G6','知力の幻水G6','心力の幻水G6'],
       alkahestNameEN: ['Grade 6 Strength Alkahest', 'Grade 6 Dexterity Alkahest', 'Grade 6 Vitality Alkahest', 'Grade 6 Intelligence Alkahest', 'Grade 6 Mind Alkahest'],
       aethersandNameJP: ['巨岩の霊砂', '巨樹の霊砂','巨海の霊砂'],
+      aethersandNameEN: ['Endstone Aethersand', 'Endwood Aethersand', 'Endtide Aethersand']
+      //Moonlight Aethersand
     }
   },
   computed: {
@@ -79,7 +82,7 @@ export default defineComponent({
           this.tank.rings + this.healer.rings+ this.dragoonAndReaper.rings + this.samuraiAndMonk.rings + this.ninja.rings + this.rangedDPS.rings + this.magicDPS.rings + this.magicDPS.hands +
           this.tank.necklace + this.healer.necklace+ this.dragoonAndReaper.necklace + this.samuraiAndMonk.necklace + this.ninja.necklace + this.rangedDPS.necklace + this.magicDPS.necklace + 
           this.rangedDPS.body + this.magicDPS.body * 2 + this.healer.body * 2 + this.rangedDPS.hands 
-        // 制革 アミノドンレザー
+        // 制革 アミノドンレザー Amynodon Leather
         newstuff[3] = this.ninja.head + this.ninja.hands + this.tank.feet +this.ninja.feet + this.magicDPS.head +
           this.rangedDPS.body * 3 + (this.magicDPS.hands + this.dragoonAndReaper.feet + this.samuraiAndMonk.feet + this.rangedDPS.feet + this.magicDPS.feet + this.healer.feet) * 2 +
           this.tank.necklace + this.healer.necklace+ this.dragoonAndReaper.necklace + this.samuraiAndMonk.necklace + this.ninja.necklace + this.rangedDPS.necklace + this.magicDPS.necklace + 
@@ -94,6 +97,24 @@ export default defineComponent({
       },
       oldStuff: function() {
         let oldstuff = new Array(5).fill(0)
+        // 木工 インテグラル材 Integral Lumber
+        oldstuff[0] = this.jobData[9] + this.jobData[13] + this.jobData[4] + this.jobData[16]
+        // 铁匠 コンドライトインゴット Chondrite Ingot
+        oldstuff[1] = this.jobData[0] + this.jobData[1] + this.jobData[2] + this.jobData[3] + this.jobData[12] + this.jobData[8] + this.jobData[11] + this.jobData[10] + this.jobData[14] + this.jobData[15] + 
+          this.tank.head + this.dragoonAndReaper.head + this.samuraiAndMonk.head + this.ninja.head + this.samuraiAndMonk.body + this.ninja.body + this.tank.hands + this.dragoonAndReaper.hands + this.samuraiAndMonk.hands + this.ninja.hands + this.tank.feet + this.ninja.feet +
+          this.rangedDPS.body + this.magicDPS.feet + this.healer.feet
+        // 雕金 スタークォーツ Star Quartz
+        oldstuff[2] = this.tank.bracelets + this.dragoonAndReaper.bracelets + this.samuraiAndMonk.bracelets + this.ninja.bracelets + this.healer.bracelets + this.rangedDPS.bracelets + this.magicDPS.bracelets +
+          this.jobData[18] + this.jobData[6] + this.jobData[7] + this.magicDPS.head + this.healer.head +  this.healer.hands +
+          this.tank.earring + this.dragoonAndReaper.earring + this.samuraiAndMonk.earring + this.ninja.earring + this.healer.earring + this.rangedDPS.earring + this.magicDPS.earring +
+          this.tank.rings + this.dragoonAndReaper.rings + this.samuraiAndMonk.rings + this.ninja.rings + this.healer.rings + this.rangedDPS.rings + this.magicDPS.rings +
+          this.tank.necklace + this.dragoonAndReaper.necklace + this.samuraiAndMonk.necklace + this.ninja.necklace + this.healer.necklace + this.rangedDPS.necklace + this.magicDPS.necklace
+        // 制革 オピオタウロスレザー Ophiotauros Leather
+        oldstuff[3] = this.dragoonAndReaper.feet + this.samuraiAndMonk.feet + this.rangedDPS.feet +
+          this.rangedDPS.body + this.dragoonAndReaper.body + this.rangedDPS.hands
+        // 裁缝 カエアンビロード AR-Caean Velvet
+        oldstuff[4] = this.magicDPS.hands + this.tank.body + this.magicDPS.body + this.healer.body +
+          this.tank.legs + this.dragoonAndReaper.legs + this.samuraiAndMonk.legs + this.ninja.legs + this.healer.legs + this.rangedDPS.legs + this.magicDPS.legs
         return oldstuff
       },
       alkahest: function() {
@@ -120,6 +141,21 @@ export default defineComponent({
       },
       aethersand: function() {
         let aethersand = new Array(3).fill(0)
+        aethersand[0] = this.jobData[9] + this.jobData[13] + this.tank.bracelets + this.dragoonAndReaper.bracelets + this.samuraiAndMonk.bracelets + this.ninja.bracelets + this.healer.bracelets + this.rangedDPS.bracelets + this.magicDPS.bracelets +
+          this.jobData[12] + this.jobData[8] + this.jobData[11] + this.jobData[10] + this.jobData[14] + this.jobData[15] +
+          this.samuraiAndMonk.body + this.ninja.body + this.tank.hands + this.dragoonAndReaper.hands + this.samuraiAndMonk.hands + this.ninja.hands +
+          this.healer.hands +
+          this.rangedDPS.body + this.magicDPS.hands + this.tank.necklace + this.dragoonAndReaper.necklace + this.samuraiAndMonk.necklace + this.ninja.necklace + this.healer.necklace + this.rangedDPS.necklace + this.magicDPS.necklace +
+          this.tank.body + this.dragoonAndReaper.body + this.magicDPS.body + this.healer.body + this.rangedDPS.hands 
+        aethersand[1] = this.jobData[16] + this.jobData[0] + this.jobData[1] + this.jobData[2] + this.jobData[3] +
+          this.tank.head + this.dragoonAndReaper.head + this.samuraiAndMonk.head + this.ninja.head + 
+          this.jobData[18] + this.magicDPS.head + this.healer.head +
+          this.tank.earring + this.dragoonAndReaper.earring + this.samuraiAndMonk.earring + this.ninja.earring + this.healer.earring + this.rangedDPS.earring + this.magicDPS.earring +
+          this.rangedDPS.head + this.tank.legs + this.dragoonAndReaper.legs + this.samuraiAndMonk.legs + this.ninja.legs + this.healer.legs + this.rangedDPS.legs + this.magicDPS.legs +
+          this.jobData[17]
+        aethersand[2] = this.jobData[4] + this.tank.feet + this.ninja.feet + this.jobData[6] + this.jobData[7] + 
+          this.tank.rings + this.dragoonAndReaper.rings + this.samuraiAndMonk.rings + this.ninja.rings + this.healer.rings + this.rangedDPS.rings + this.magicDPS.rings +
+          this.dragoonAndReaper.feet + this.samuraiAndMonk.feet + this.rangedDPS.feet + this.magicDPS.feet + this.healer.feet + this.jobData[5]
         return aethersand
       }
   },
@@ -283,12 +319,15 @@ export default defineComponent({
           </div>
         </template>
         <div class="grid grid-rows-5 grid-flow-col gap-2">
-            <img src="./assets/MempisangLumber.png" alt="" class="itemIcon">
-            <img src="./assets/LunarAdamantiteIngot.png" alt="" class="itemIcon">
-            <img src="./assets/RhodiumIngot.png" alt="" class="itemIcon">
-            <img src="./assets/AmynodonLeather.png" alt="" class="itemIcon">
-            <img src="./assets/GoldenSilk.png" alt="" class="itemIcon">
-          <div v-for="(name,index) in oldStuffNameJP" >
+            <img src="./assets/IntegralLumber.png" alt="" class="itemIcon">
+            <img src="./assets/ChondriteIngot.png" alt="" class="itemIcon">
+            <img src="./assets/StarQuartz.png" alt="" class="itemIcon">
+            <img src="./assets/OphiotaurosLeather.png" alt="" class="itemIcon">
+            <img src="./assets/ARCaeanVelvet.png" alt="" class="itemIcon">
+          <div v-for="(name,index) in oldStuffNameJP" v-if="langFlag=='JP'">
+            {{name}} - {{oldStuff[index]}}
+          </div>
+          <div v-for="(name,index) in oldStuffNameEN" v-if="langFlag=='EN'">
             {{name}} - {{oldStuff[index]}}
           </div>
         </div>
@@ -320,10 +359,13 @@ export default defineComponent({
           </div>
         </template>
         <div class="grid grid-rows-3 grid-flow-col gap-2">
-            <img src="./assets/MempisangLumber.png" alt="" class="itemIcon">
-            <img src="./assets/LunarAdamantiteIngot.png" alt="" class="itemIcon">
-            <img src="./assets/RhodiumIngot.png" alt="" class="itemIcon">
-          <div v-for="(name,index) in aethersandNameJP" >
+            <img src="./assets/Endstone.png" alt="" class="itemIcon">
+            <img src="./assets/Endwood.png" alt="" class="itemIcon">
+            <img src="./assets/Endtide.png" alt="" class="itemIcon">
+          <div v-for="(name,index) in aethersandNameJP" v-if="langFlag=='JP'">
+            {{name}} - {{aethersand[index]}}
+          </div>
+          <div v-for="(name,index) in aethersandNameEN" v-if="langFlag=='EN'">
             {{name}} - {{aethersand[index]}}
           </div>
         </div>

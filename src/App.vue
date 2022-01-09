@@ -43,6 +43,7 @@ export default defineComponent({
       ninja: createGear(),
       rangedDPS: createGear(),
       magicDPS: createGear(),
+      langFlag: 'EN',
       gearName: ["头部", "身体", "手部", "腿部", "脚部", "耳饰", "项链", "手镯", "戒指"],
       jobName: ["骑士", "战士", "暗黑骑士", "绝枪战士", "白魔法师", "学者", "占星术士", "贤者", "武僧", "龙骑士", "忍者", "武士", "钐镰客", "吟游诗人", "机工士", "舞者", "黑魔法师", "召唤师", "赤魔法师"],
       jobData: new Array(19).fill(0),
@@ -50,6 +51,7 @@ export default defineComponent({
       newStuffNameEN: ['Mempisang Lumber', 'Lunar Adamantite Ingot', 'Rhodium Ingot', 'Amynodon Leather', 'Golden Silk'],
       oldStuffNameJP: ['インテグラル材', 'コンドライトインゴット', 'スタークォーツ', 'オピオタウロスレザー', 'カエアンビロード'],
       alkahestNameJP: ['剛力の幻水G6','眼力の幻水G6','活力の幻水G6','知力の幻水G6','心力の幻水G6'],
+      alkahestNameEN: ['Grade 6 Strength Alkahest', 'Grade 6 Dexterity Alkahest', 'Grade 6 Vitality Alkahest', 'Grade 6 Intelligence Alkahest', 'Grade 6 Mind Alkahest'],
       aethersandNameJP: ['巨岩の霊砂', '巨樹の霊砂','巨海の霊砂'],
     }
   },
@@ -96,6 +98,24 @@ export default defineComponent({
       },
       alkahest: function() {
         let alkahest = new Array(5).fill(0)
+        alkahest[0] = (this.jobData[9] + this.jobData[12] + this.jobData[8] + this.jobData[11]) * 2 +
+          (this.dragoonAndReaper.head + this.dragoonAndReaper.body + this.dragoonAndReaper.hands + this.dragoonAndReaper.legs + this.dragoonAndReaper.feet) * 2 +
+          (this.samuraiAndMonk.head + this.samuraiAndMonk.body + this.samuraiAndMonk.hands + this.samuraiAndMonk.legs + this.samuraiAndMonk.feet) * 2 +
+          this.dragoonAndReaper.earring + this.dragoonAndReaper.necklace + this.dragoonAndReaper.bracelets + this.dragoonAndReaper.rings +
+          this.samuraiAndMonk.earring + this.samuraiAndMonk.necklace + this.samuraiAndMonk.bracelets + this.samuraiAndMonk.rings
+        alkahest[1] = (this.jobData[13] + this.jobData[14] + this.jobData[15] + this.jobData[10]) * 2 +
+          (this.ninja.head + this.ninja.body + this.ninja.hands + this.ninja.legs + this.ninja.feet) * 2 +
+          (this.rangedDPS.head + this.rangedDPS.body + this.rangedDPS.hands + this.rangedDPS.legs + this.rangedDPS.feet) * 2 +
+          this.rangedDPS.earring + this.rangedDPS.necklace + this.rangedDPS.bracelets + this.rangedDPS.rings
+        alkahest[2] = (this.jobData[0] + this.jobData[1] + this.jobData[2] + this.jobData[3]) * 2 +
+          (this.tank.head + this.tank.body + this.tank.hands + this.tank.legs + this.tank.feet) * 2 +
+          this.tank.earring + this.tank.necklace + this.tank.bracelets + this.tank.rings
+        alkahest[3] = (this.jobData[16] + this.jobData[17] + this.jobData[18]) * 2 +
+          (this.magicDPS.head + this.magicDPS.body + this.magicDPS.hands + this.magicDPS.legs + this.magicDPS.feet) * 2 +
+          this.magicDPS.earring + this.magicDPS.necklace + this.magicDPS.bracelets + this.magicDPS.rings          
+        alkahest[4] = (this.jobData[4] + this.jobData[5] + this.jobData[6] + this.jobData[7]) * 2 +
+          (this.healer.head + this.healer.body + this.healer.hands + this.healer.legs + this.healer.feet) * 2 +
+          this.healer.earring + this.healer.necklace + this.healer.bracelets + this.healer.rings
         return alkahest
       },
       aethersand: function() {
@@ -184,8 +204,13 @@ export default defineComponent({
     resetJob() {
       this.jobData.fill(0)
     },
-    check() {
-      console.log(this.tank)
+    changeLang() {
+      if( this.langFlag=='JP') {
+        this.langFlag = 'EN'
+      }
+      else {
+        this.langFlag = 'JP'
+      }
     }
   }
 })
@@ -243,7 +268,10 @@ export default defineComponent({
             <img src="./assets/RhodiumIngot.png" alt="" class="itemIcon">
             <img src="./assets/AmynodonLeather.png" alt="" class="itemIcon">
             <img src="./assets/GoldenSilk.png" alt="" class="itemIcon">
-          <div v-for="(name,index) in newStuffNameJP" >
+          <div v-for="(name,index) in newStuffNameJP" v-if="langFlag=='JP'">
+            {{name}} - {{newStuff[index]}}
+          </div>
+          <div v-for="(name,index) in newStuffNameEN" v-if="langFlag=='EN'">
             {{name}} - {{newStuff[index]}}
           </div>
         </div>
@@ -272,12 +300,15 @@ export default defineComponent({
           </div>
         </template>
         <div class="grid grid-rows-5 grid-flow-col gap-2">
-            <img src="./assets/MempisangLumber.png" alt="" class="itemIcon">
-            <img src="./assets/LunarAdamantiteIngot.png" alt="" class="itemIcon">
-            <img src="./assets/RhodiumIngot.png" alt="" class="itemIcon">
-            <img src="./assets/AmynodonLeather.png" alt="" class="itemIcon">
-            <img src="./assets/GoldenSilk.png" alt="" class="itemIcon">
-          <div v-for="(name,index) in alkahestNameJP" >
+            <img src="./assets/StrengthAlkahest.png" alt="" class="itemIcon">
+            <img src="./assets/DexterityAlkahest.png" alt="" class="itemIcon">
+            <img src="./assets/VitalityAlkahest.png" alt="" class="itemIcon">
+            <img src="./assets/IntelligenceAlkahest.png" alt="" class="itemIcon">
+            <img src="./assets/MindAlkahest.png" alt="" class="itemIcon">
+          <div v-for="(name,index) in alkahestNameJP" v-if="langFlag=='JP'">
+            {{name}} - {{alkahest[index]}}
+          </div>
+          <div v-for="(name,index) in alkahestNameEN" v-if="langFlag=='EN'">
             {{name}} - {{alkahest[index]}}
           </div>
         </div>
@@ -296,6 +327,9 @@ export default defineComponent({
             {{name}} - {{aethersand[index]}}
           </div>
         </div>
+      </el-card>
+      <el-card>
+        <el-button @click="changeLang()">点我切换语言！</el-button>
       </el-card>
       </div>
     </div>

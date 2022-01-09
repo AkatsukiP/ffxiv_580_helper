@@ -1,3 +1,0 @@
-# FFXIV 580 Helper
-
-Still working on it...

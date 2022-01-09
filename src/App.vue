@@ -127,6 +127,7 @@ export default defineComponent({
         alkahest[1] = (this.jobData[13] + this.jobData[14] + this.jobData[15] + this.jobData[10]) * 2 +
           (this.ninja.head + this.ninja.body + this.ninja.hands + this.ninja.legs + this.ninja.feet) * 2 +
           (this.rangedDPS.head + this.rangedDPS.body + this.rangedDPS.hands + this.rangedDPS.legs + this.rangedDPS.feet) * 2 +
+          this.ninja.earring + this.ninja.necklace + this.ninja.bracelets + this.ninja.rings + 
           this.rangedDPS.earring + this.rangedDPS.necklace + this.rangedDPS.bracelets + this.rangedDPS.rings
         alkahest[2] = (this.jobData[0] + this.jobData[1] + this.jobData[2] + this.jobData[3]) * 2 +
           (this.tank.head + this.tank.body + this.tank.hands + this.tank.legs + this.tank.feet) * 2 +

@@ -44,6 +44,7 @@ export default defineComponent({
       rangedDPS: createGear(),
       magicDPS: createGear(),
       langFlag: 'EN',
+      darkMode: false,
       gearName: ["头部", "身体", "手部", "腿部", "脚部", "耳饰", "项链", "手镯", "戒指"],
       jobName: ["骑士", "战士", "暗黑骑士", "绝枪战士", "白魔法师", "学者", "占星术士", "贤者", "武僧", "龙骑士", "忍者", "武士", "钐镰客", "吟游诗人", "机工士", "舞者", "黑魔法师", "召唤师", "赤魔法师"],
       jobData: new Array(19).fill(0),
@@ -248,18 +249,22 @@ export default defineComponent({
       else {
         this.langFlag = 'JP'
       }
+    },
+    changeDark() {
+      this.darkMode = !this.darkMode
     }
   }
 })
 </script>
 
 <template>
-  <div class="container">
+<div :class="{dark: darkMode}">
+  <div class="container mx-auto h-full w-full bg-gray-100 dark:bg-gray-900" >
     <div class="flex gap-4">
-      <div class="grid grid-rows-2 grid-flow-col gap-2">
-      <el-card class="card">
-        <el-row>
-          <el-col :span="4" class="role flex-auto">
+      <div class="grid xl:grid-rows-2 md:grid-rows-7 xl:grid-flow-col gap-2">
+      <div class="card">
+        <div class="card-body grid grid-cols-3 gap-4">
+          <div class="role">
             <button class="btn" @click="roleActive(0)" :class="{active: roleFlag===0}" >防护职业{{}}</button>
             <button class="btn" @click="roleActive(1)" :class="{active: roleFlag===1}">治疗职业</button>
             <!-- <button class="btn pointer-events-none" :class="{active: roleFlag===2||roleFlag===3||roleFlag===4}">近战职业</button> -->
@@ -268,8 +273,8 @@ export default defineComponent({
             <button class="btn" @click="roleActive(4)" :class="{active: roleFlag===4}">忍者</button>
             <button class="btn" @click="roleActive(5)" :class="{active: roleFlag===5}">远程物理职业</button>
             <button class="btn" @click="roleActive(6)" :class="{active: roleFlag===6}">远程魔法职业</button>
-          </el-col>
-          <el-col :span="20" class="gear grid grid-rows-5 grid-flow-col">
+          </div>
+          <div class="gear col-span-2 grid grid-flow-row-dense grid-cols-2 grid-rows-5">
             <div v-for="(value,name,index) in whichRole(roleFlag)">
             {{gearName[index]}} 
             <el-input-number v-model="whichRole(roleFlag)[name]" :min="0" :max="10" />
@@ -278,10 +283,10 @@ export default defineComponent({
               <el-button @click="resetRole()">清空</el-button>
               <el-button @click="addFullRole(roleFlag)">添加整套</el-button>
             </div>
-          </el-col>
-        </el-row>
-      </el-card>
-      <el-card class="card">
+          </div>
+        </div>
+      </div>
+      <div class="card">
           <el-col :span="20" class="gear grid grid-rows-5 grid-flow-col">
             <div v-for="(name,index) in jobName" class="m-4">
             {{name}}
@@ -292,14 +297,12 @@ export default defineComponent({
               <!-- <el-button @click="addFullRole(roleFlag)">添加整套</el-button> -->
             </div>
           </el-col>
-      </el-card>
-      <el-card class="card">
-        <template #header>
-          <div class="card-header">
-            <span>新半成品</span>
-          </div>
-        </template>
-        <div class="grid grid-rows-5 grid-flow-col gap-2">
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <span>新半成品</span>
+        </div>
+        <div class="card-body grid grid-rows-5 grid-flow-col gap-2">
             <img src="./assets/MempisangLumber.png" alt="" class="itemIcon">
             <img src="./assets/LunarAdamantiteIngot.png" alt="" class="itemIcon">
             <img src="./assets/RhodiumIngot.png" alt="" class="itemIcon">
@@ -312,14 +315,12 @@ export default defineComponent({
             {{name}} - {{newStuff[index]}}
           </div>
         </div>
-      </el-card>
-      <el-card class="card">
-        <template #header>
-          <div class="card-header">
-            <span>旧半成品</span>
-          </div>
-        </template>
-        <div class="grid grid-rows-5 grid-flow-col gap-2">
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <span>旧半成品</span>
+        </div>
+        <div class="card-body grid grid-rows-5 grid-flow-col gap-2">
             <img src="./assets/IntegralLumber.png" alt="" class="itemIcon">
             <img src="./assets/ChondriteIngot.png" alt="" class="itemIcon">
             <img src="./assets/StarQuartz.png" alt="" class="itemIcon">
@@ -332,14 +333,12 @@ export default defineComponent({
             {{name}} - {{oldStuff[index]}}
           </div>
         </div>
-      </el-card>
-      <el-card class="card">
-        <template #header>
-          <div class="card-header">
-            <span>幻水</span>
-          </div>
-        </template>
-        <div class="grid grid-rows-5 grid-flow-col gap-2">
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <span>幻水</span>
+        </div>
+        <div class="card-body grid grid-rows-5 grid-flow-col gap-2">
             <img src="./assets/StrengthAlkahest.png" alt="" class="itemIcon">
             <img src="./assets/DexterityAlkahest.png" alt="" class="itemIcon">
             <img src="./assets/VitalityAlkahest.png" alt="" class="itemIcon">
@@ -352,14 +351,12 @@ export default defineComponent({
             {{name}} - {{alkahest[index]}}
           </div>
         </div>
-      </el-card>
-      <el-card class="card">
-        <template #header>
-          <div class="card-header">
-            <span>灵砂</span>
-          </div>
-        </template>
-        <div class="grid grid-rows-3 grid-flow-col gap-2">
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <span>灵砂</span>
+        </div>
+        <div class="card-body grid grid-rows-3 grid-flow-col gap-2">
             <img src="./assets/Endstone.png" alt="" class="itemIcon">
             <img src="./assets/Endwood.png" alt="" class="itemIcon">
             <img src="./assets/Endtide.png" alt="" class="itemIcon">
@@ -370,13 +367,15 @@ export default defineComponent({
             {{name}} - {{aethersand[index]}}
           </div>
         </div>
-      </el-card>
-      <el-card>
+      </div>
+      <div class="card">
         <el-button @click="changeLang()">点我切换语言！</el-button>
-      </el-card>
+        <el-button @click="changeDark()">暗黑模式</el-button>
+      </div>
       </div>
     </div>
   </div>
+</div>
 </template>
 
 <style>
@@ -384,30 +383,35 @@ export default defineComponent({
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
 }
+
 .card {
-  @apply bg-white rounded-lg shadow-lg
+  @apply bg-white text-gray-800 rounded-lg shadow-lg min-w-fit; 
+  @apply dark:bg-gray-800 dark:text-white dark:shadow-none dark:ring-1 dark:ring-inset dark:ring-white/10 
+}
+.card-header {
+  @apply bg-gray-100 border-b-2 py-3 px-3;
+  @apply dark:bg-gray-800 dark:border-white/5
+}
+.card-body {
+  @apply py-3 px-3 
 }
 .btn {
-  @apply w-full h-8 rounded-lg my-1
+  @apply block w-1/2 h-8 rounded-lg my-1 text-gray-800;
+  @apply dark:text-gray-100;
+  @apply ease-in-out duration-300;
 }
 .btn:hover {
-  @apply text-blue-500 ease-in-out duration-300
-}
-.modify {
-  @apply border border-blue-500 rounded-sm text-xs text-blue-500 bg-white
-}
-.modify:hover {
-  @apply bg-blue-100
+  @apply bg-gray-100;
+  @apply dark:bg-gray-700
 }
 .active { 
-  @apply bg-blue-100 text-blue-500
+  @apply bg-gray-100 text-blue-500 font-bold;
+  @apply dark:bg-gray-700 dark:text-gray-100 dark:ring-1 dark:ring-inset dark:ring-white;
+  @apply ease-in-out duration-300;
 }
 .role {
-  @apply w-1/3 grid-cols-1
+  @apply grid grid-cols-1 place-items-center
 }
 .itemIcon {
   @apply w-10

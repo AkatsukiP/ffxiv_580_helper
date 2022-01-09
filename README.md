@@ -1,1 +1,3 @@
-# ffxiv_580_helper
+# FFXIV 580 Helper
+
+Still working on it...

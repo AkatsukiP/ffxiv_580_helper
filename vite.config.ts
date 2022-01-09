@@ -6,7 +6,7 @@ import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: 'ffxiv_580_helper',
+  base: '/ffxiv_580_helper/',
   plugins: [
     vue(),
     AutoImport({

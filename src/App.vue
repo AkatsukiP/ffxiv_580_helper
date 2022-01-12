@@ -26,11 +26,9 @@ function createGear<gear>() {
         rings: 0,
     }
     return tmp
-} 
-export class role {
-
 }
-let roleData = new role();
+  const jobIconModule = import.meta.globEager('./assets/job/*.svg')
+  const itemIconModule = import.meta.globEager('./assets/*.png')
 export default defineComponent({
   name: 'app',
   components: {
@@ -45,7 +43,6 @@ export default defineComponent({
   }, 
   data() {
     return {
-      roleData: roleData,
       roleFlag: 0,
       tank: createGear(),
       healer: createGear(),
@@ -56,22 +53,24 @@ export default defineComponent({
       magicDPS: createGear(),
       langFlag: 'JP',
       darkMode: false,
+      itemIconModule: itemIconModule,
       gearName: ["头部", "身体", "手部", "腿部", "脚部", "耳饰", "项链", "手镯", "戒指"],
       jobName: ["骑士", "战士", "暗黑骑士", "绝枪战士", "白魔法师", "学者", "占星术士", "贤者", "武僧", "龙骑士", "忍者", "武士", "钐镰客", "吟游诗人", "机工士", "舞者", "黑魔法师", "召唤师", "赤魔法师"],
-      jobIcon: ['src/assets/job/PLD.svg','src/assets/job/WAR.svg','src/assets/job/DRK.svg','src/assets/job/GNB.svg','src/assets/job/WHM.svg','src/assets/job/SCH.svg','src/assets/job/AST.svg','src/assets/job/SGE.svg','src/assets/job/MNK.svg','src/assets/job/DRG.svg','src/assets/job/NIN.svg','src/assets/job/SAM.svg','src/assets/job/RPR.svg','src/assets/job/BRD.svg','src/assets/job/MCH.svg','src/assets/job/DNC.svg','src/assets/job/BLM.svg','src/assets/job/SMN.svg','src/assets/job/RDM.svg'],
+      jobIconPath: ['./assets/job/PLD.svg','./assets/job/WAR.svg','./assets/job/DRK.svg','./assets/job/GNB.svg','./assets/job/WHM.svg','./assets/job/SCH.svg','./assets/job/AST.svg','./assets/job/SGE.svg','./assets/job/MNK.svg','./assets/job/DRG.svg','./assets/job/NIN.svg','./assets/job/SAM.svg','./assets/job/RPR.svg','./assets/job/BRD.svg','./assets/job/MCH.svg','./assets/job/DNC.svg','./assets/job/BLM.svg','./assets/job/SMN.svg','./assets/job/RDM.svg'],
+      jobIconModule: jobIconModule,
       jobData: new Array<number>(19).fill(0),
       newStuffNameJP: ['メンピサン材', 'ルナアダマンインゴット', 'ロジウムインゴット', 'アミノドンレザー', 'ゴールドシルク'],
       newStuffNameEN: ['Mempisang Lumber', 'Lunar Adamantite Ingot', 'Rhodium Ingot', 'Amynodon Leather', 'Golden Silk'],
-      newStuffIcon:['src/assets/MempisangLumber.png','src/assets/LunarAdamantiteIngot.png','src/assets/RhodiumIngot.png','src/assets/AmynodonLeather.png','src/assets/GoldenSilk.png'],
+      newStuffIconPath:['./assets/MempisangLumber.png','./assets/LunarAdamantiteIngot.png','./assets/RhodiumIngot.png','./assets/AmynodonLeather.png','./assets/GoldenSilk.png'],
       oldStuffNameJP: ['インテグラル材', 'コンドライトインゴット', 'スタークォーツ', 'オピオタウロスレザー', 'カエアンビロード'],
       oldStuffNameEN: ['Integral Lumber', 'Chondrite Ingot', 'Star Quartz', 'Ophiotauros Leather', 'AR-Caean Velvet'],
-      oldStuffIcon:['src/assets/IntegralLumber.png', 'src/assets/ChondriteIngot.png', 'src/assets/StarQuartz.png', 'src/assets/OphiotaurosLeather.png', 'src/assets/ARCaeanVelvet.png', ],
+      oldStuffIconPath:['./assets/IntegralLumber.png', './assets/ChondriteIngot.png', './assets/StarQuartz.png', './assets/OphiotaurosLeather.png', './assets/ARCaeanVelvet.png', ],
       alkahestNameJP: ['剛力の幻水G6','眼力の幻水G6','活力の幻水G6','知力の幻水G6','心力の幻水G6'],
       alkahestNameEN: ['Grade 6 Strength Alkahest', 'Grade 6 Dexterity Alkahest', 'Grade 6 Vitality Alkahest', 'Grade 6 Intelligence Alkahest', 'Grade 6 Mind Alkahest'],
-      alkahestIcon:['src/assets/StrengthAlkahest.png', 'src/assets/DexterityAlkahest.png', 'src/assets/VitalityAlkahest.png', 'src/assets/IntelligenceAlkahest.png', 'src/assets/MindAlkahest.png'],
+      alkahestIconPath:['./assets/StrengthAlkahest.png', './assets/DexterityAlkahest.png', './assets/VitalityAlkahest.png', './assets/IntelligenceAlkahest.png', './assets/MindAlkahest.png'],
       aethersandNameJP: ['巨岩の霊砂', '巨樹の霊砂','巨海の霊砂'],
       aethersandNameEN: ['Endstone Aethersand', 'Endwood Aethersand', 'Endtide Aethersand'],
-      aethersandIcon: ['src/assets/Endstone.png', 'src/assets/Endwood.png', 'src/assets/Endtide.png'],
+      aethersandIconPath: ['./assets/Endstone.png', './assets/Endwood.png', './assets/Endtide.png'],
       //Moonlight Aethersand
     }
   },
@@ -239,6 +238,7 @@ export default defineComponent({
         this.rangedDPS[name]=0
         this.magicDPS[name]=0
       }
+      console.log(jobIconModule)
     },
     addFullRole(role:number) {
       for (let name in this.tank) {
@@ -286,7 +286,31 @@ export default defineComponent({
     changeDark() {
       this.darkMode = !this.darkMode
     },
-
+    getImage(index:number, category: string) {
+      switch(category) {
+        case 'jobIcon': {
+          return jobIconModule[this.jobIconPath[index]].default
+          break
+          }
+        case 'newstuff': {
+          return itemIconModule[this.newStuffIconPath[index]].default
+          break
+          }
+        case 'oldstuff': {
+          return itemIconModule[this.oldStuffIconPath[index]].default
+          break
+          }
+        case 'alkahest': {
+          return itemIconModule[this.alkahestIconPath[index]].default
+          break
+          }
+        default: {
+          return itemIconModule[this.aethersandIconPath[index]].default
+        }
+      }
+      
+      
+    }
   }
 })
 </script>
@@ -429,7 +453,7 @@ export default defineComponent({
         </div>
           <div class="gear grid grid-cols-4 gap-2 p-2">
             <div v-for="(name,index) in jobName" class="flex bg-gray-100  p-1 w-28 h-12 rounded-xl">
-            <img :src="jobIcon[index]" class="w-5" :alt="name">
+            <img :src="getImage(index,'jobIcon')" class="w-5" :alt="name">
             <!-- <input type="number" min="0" required v-model="jobData[index]" class="w-10 h-8 text-center"> -->
             <el-input-number v-model="jobData[index]" :min="0" :max="10" size="small" class="h-6 my-auto"/>
             </div>
@@ -444,7 +468,7 @@ export default defineComponent({
             <tbody class="divide-y divide-gray-200">
               <tr v-for="(name,index) in newStuffNameEN"  class="item">
                 <td class="px-6 py-3 whitespace-nowrap">
-                  <img :src="newStuffIcon[index]" alt="" class="itemIcon"> 
+                  <img :src="getImage(index,'newstuff')" alt="" class="itemIcon"> 
                 </td>
                 <td class="px-6 py-3 whitespace-nowrap" v-if="langFlag=='JP'">
                   {{newStuffNameJP[index]}}
@@ -469,7 +493,7 @@ export default defineComponent({
             <tbody class="divide-y divide-gray-200">
               <tr v-for="(name,index) in oldStuffNameEN"  class="item">
                 <td class="px-6 py-3 whitespace-nowrap">
-                  <img :src="oldStuffIcon[index]" alt="" class="itemIcon"> 
+                  <img :src="getImage(index,'oldstuff')" alt="" class="itemIcon"> 
                 </td>
                 <td class="px-6 py-3 whitespace-nowrap" v-if="langFlag=='JP'">
                   {{oldStuffNameJP[index]}}
@@ -494,7 +518,7 @@ export default defineComponent({
             <tbody class="divide-y divide-gray-200">
               <tr v-for="(name,index) in alkahestNameEN"  class="item">
                 <td class="px-6 py-3 whitespace-nowrap">
-                  <img :src="alkahestIcon[index]" alt="" class="itemIcon"> 
+                  <img :src="getImage(index,'alkahest')" alt="" class="itemIcon"> 
                 </td>
                 <td class="px-6 py-3 whitespace-nowrap" v-if="langFlag=='JP'">
                   {{alkahestNameJP[index]}}
@@ -519,7 +543,7 @@ export default defineComponent({
             <tbody class="divide-y divide-gray-200">
               <tr v-for="(name,index) in aethersandNameEN"  class="item">
                 <td class="px-6 py-3 whitespace-nowrap">
-                  <img :src="aethersandIcon[index]" alt="" class="itemIcon"> 
+                  <img :src="getImage(index,'aethersand')" alt="" class="itemIcon"> 
                 </td>
                 <td class="px-6 py-3 whitespace-nowrap" v-if="langFlag=='JP'">
                   {{aethersandNameJP[index]}}

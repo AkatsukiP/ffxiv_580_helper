@@ -15,5 +15,10 @@ export default defineConfig({
     Components({
       resolvers: [ElementPlusResolver()],
     }),
-  ]
+  ],
+  resolve: {
+    alias : {
+        '/assets': 'src/assets',
+    }
+  }
 })

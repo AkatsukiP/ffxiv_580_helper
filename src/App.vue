@@ -50,12 +50,16 @@ export default defineComponent({
       jobData: new Array(19).fill(0),
       newStuffNameJP: ['メンピサン材', 'ルナアダマンインゴット', 'ロジウムインゴット', 'アミノドンレザー', 'ゴールドシルク'],
       newStuffNameEN: ['Mempisang Lumber', 'Lunar Adamantite Ingot', 'Rhodium Ingot', 'Amynodon Leather', 'Golden Silk'],
+      newStuffIcon:['src/assets/MempisangLumber.png','src/assets/LunarAdamantiteIngot.png','src/assets/RhodiumIngot.png','src/assets/AmynodonLeather.png','src/assets/GoldenSilk.png'],
       oldStuffNameJP: ['インテグラル材', 'コンドライトインゴット', 'スタークォーツ', 'オピオタウロスレザー', 'カエアンビロード'],
       oldStuffNameEN: ['Integral Lumber', 'Chondrite Ingot', 'Star Quartz', 'Ophiotauros Leather', 'AR-Caean Velvet'],
+      oldStuffIcon:['src/assets/IntegralLumber.png', 'src/assets/ChondriteIngot.png', 'src/assets/StarQuartz.png', 'src/assets/OphiotaurosLeather.png', 'src/assets/ARCaeanVelvet.png', ],
       alkahestNameJP: ['剛力の幻水G6','眼力の幻水G6','活力の幻水G6','知力の幻水G6','心力の幻水G6'],
       alkahestNameEN: ['Grade 6 Strength Alkahest', 'Grade 6 Dexterity Alkahest', 'Grade 6 Vitality Alkahest', 'Grade 6 Intelligence Alkahest', 'Grade 6 Mind Alkahest'],
+      alkahestIcon:['src/assets/StrengthAlkahest.png', 'src/assets/DexterityAlkahest.png', 'src/assets/VitalityAlkahest.png', 'src/assets/IntelligenceAlkahest.png', 'src/assets/MindAlkahest.png'],
       aethersandNameJP: ['巨岩の霊砂', '巨樹の霊砂','巨海の霊砂'],
-      aethersandNameEN: ['Endstone Aethersand', 'Endwood Aethersand', 'Endtide Aethersand']
+      aethersandNameEN: ['Endstone Aethersand', 'Endwood Aethersand', 'Endtide Aethersand'],
+      aethersandIcon: ['src/assets/Endstone.png', 'src/assets/Endwood.png', 'src/assets/Endtide.png'],
       //Moonlight Aethersand
     }
   },
@@ -252,17 +256,36 @@ export default defineComponent({
     },
     changeDark() {
       this.darkMode = !this.darkMode
+    },
+    test() {
+      return 'aethersandIcon[1]'
     }
   }
 })
 </script>
 
 <template>
-<div :class="{dark: darkMode}">
-  <div class="container mx-auto h-full w-full bg-gray-100 dark:bg-gray-900" >
-    <div class="flex gap-4">
-      <div class="grid xl:grid-rows-2 md:grid-rows-7 xl:grid-flow-col gap-2">
-      <div class="card">
+<div :class="{dark: darkMode}" class="min-h-screen h-full w-full bg-gray-100 dark:bg-gray-900 ">
+  <div class="nav bg-gray-800">
+    <div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
+      <div class="relative flex items-center justify-between h-16">
+        <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
+          test
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container mx-auto p-2" >
+    <div class="">
+      <div class="grid xl:grid-rows-2 md:grid-rows-7 xl:grid-flow-col gap-3">
+      <div class="card h-fit">
+        <div class="card-header">
+          <span>职业装备</span>
+          <div class="float-right gap-2">
+            <button class="btn-header" @click="resetRole()">清空</button>
+            <button class="btn-header" @click="addFullRole(roleFlag)">添加整套</button>
+          </div>
+        </div>
         <div class="card-body grid grid-cols-3 gap-4">
           <div class="role">
             <button class="btn" @click="roleActive(0)" :class="{active: roleFlag===0}" >防护职业{{}}</button>
@@ -279,98 +302,122 @@ export default defineComponent({
             {{gearName[index]}} 
             <el-input-number v-model="whichRole(roleFlag)[name]" :min="0" :max="10" />
             </div>
-            <div>
-              <el-button @click="resetRole()">清空</el-button>
-              <el-button @click="addFullRole(roleFlag)">添加整套</el-button>
-            </div>
           </div>
         </div>
       </div>
       <div class="card">
+        <div class="card-header">
+          <span>职业武器</span>
+          <div class="float-right gap-2">
+            <button class="btn-header" @click="resetJob()">清空</button>
+          </div>
+        </div>
           <el-col :span="20" class="gear grid grid-rows-5 grid-flow-col">
             <div v-for="(name,index) in jobName" class="m-4">
             {{name}}
             <el-input-number v-model="jobData[index]" :min="0" :max="10" size="small"/>
             </div>
-            <div class="m-4">
-              <el-button @click="resetJob()">清空</el-button>
-              <!-- <el-button @click="addFullRole(roleFlag)">添加整套</el-button> -->
-            </div>
           </el-col>
       </div>
-      <div class="card">
+      <div class="card w-96 h-fit">
         <div class="card-header">
           <span>新半成品</span>
         </div>
-        <div class="card-body grid grid-rows-5 grid-flow-col gap-2">
-            <img src="./assets/MempisangLumber.png" alt="" class="itemIcon">
-            <img src="./assets/LunarAdamantiteIngot.png" alt="" class="itemIcon">
-            <img src="./assets/RhodiumIngot.png" alt="" class="itemIcon">
-            <img src="./assets/AmynodonLeather.png" alt="" class="itemIcon">
-            <img src="./assets/GoldenSilk.png" alt="" class="itemIcon">
-          <div v-for="(name,index) in newStuffNameJP" v-if="langFlag=='JP'">
-            {{name}} - {{newStuff[index]}}
-          </div>
-          <div v-for="(name,index) in newStuffNameEN" v-if="langFlag=='EN'">
-            {{name}} - {{newStuff[index]}}
-          </div>
+        <div class="card-body">
+            <table class="min-w-full divide-y divide-gray-200">
+            <tbody class="bg-white divide-y divide-gray-200">
+              <tr v-for="(name,index) in newStuffNameEN"  class="item">
+                <td class="px-6 py-3 whitespace-nowrap">
+                  <img :src="newStuffIcon[index]" alt="" class="itemIcon"> 
+                </td>
+                <td class="px-6 py-3 whitespace-nowrap" v-if="langFlag=='JP'">
+                  {{newStuffNameJP[index]}}
+                </td>
+                <td class="px-6 py-3 whitespace-nowrap" v-if="langFlag=='EN'">
+                  {{newStuffNameEN[index]}}
+                </td>
+                <td class="px-6 py-3 whitespace-nowrap">
+                  {{newStuff[index]}}
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
-      <div class="card">
+      <div class="card w-96 h-fit">
         <div class="card-header">
           <span>旧半成品</span>
         </div>
-        <div class="card-body grid grid-rows-5 grid-flow-col gap-2">
-            <img src="./assets/IntegralLumber.png" alt="" class="itemIcon">
-            <img src="./assets/ChondriteIngot.png" alt="" class="itemIcon">
-            <img src="./assets/StarQuartz.png" alt="" class="itemIcon">
-            <img src="./assets/OphiotaurosLeather.png" alt="" class="itemIcon">
-            <img src="./assets/ARCaeanVelvet.png" alt="" class="itemIcon">
-          <div v-for="(name,index) in oldStuffNameJP" v-if="langFlag=='JP'">
-            {{name}} - {{oldStuff[index]}}
-          </div>
-          <div v-for="(name,index) in oldStuffNameEN" v-if="langFlag=='EN'">
-            {{name}} - {{oldStuff[index]}}
-          </div>
+        <div class="card-body">
+            <table class="min-w-full divide-y divide-gray-200">
+            <tbody class="bg-white divide-y divide-gray-200">
+              <tr v-for="(name,index) in oldStuffNameEN"  class="item">
+                <td class="px-6 py-3 whitespace-nowrap">
+                  <img :src="oldStuffIcon[index]" alt="" class="itemIcon"> 
+                </td>
+                <td class="px-6 py-3 whitespace-nowrap" v-if="langFlag=='JP'">
+                  {{oldStuffNameJP[index]}}
+                </td>
+                <td class="px-6 py-3 whitespace-nowrap" v-if="langFlag=='EN'">
+                  {{oldStuffNameEN[index]}}
+                </td>
+                <td class="px-6 py-3 whitespace-nowrap">
+                  {{oldStuff[index]}}
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
-      <div class="card">
+      <div class="card w-fit h-fit">
         <div class="card-header">
           <span>幻水</span>
         </div>
-        <div class="card-body grid grid-rows-5 grid-flow-col gap-2">
-            <img src="./assets/StrengthAlkahest.png" alt="" class="itemIcon">
-            <img src="./assets/DexterityAlkahest.png" alt="" class="itemIcon">
-            <img src="./assets/VitalityAlkahest.png" alt="" class="itemIcon">
-            <img src="./assets/IntelligenceAlkahest.png" alt="" class="itemIcon">
-            <img src="./assets/MindAlkahest.png" alt="" class="itemIcon">
-          <div v-for="(name,index) in alkahestNameJP" v-if="langFlag=='JP'">
-            {{name}} - {{alkahest[index]}}
-          </div>
-          <div v-for="(name,index) in alkahestNameEN" v-if="langFlag=='EN'">
-            {{name}} - {{alkahest[index]}}
-          </div>
+        <div class="card-body">
+           <table class="min-w-full divide-y divide-gray-200">
+            <tbody class="bg-white divide-y divide-gray-200">
+              <tr v-for="(name,index) in alkahestNameEN"  class="item">
+                <td class="px-6 py-3 whitespace-nowrap">
+                  <img :src="alkahestIcon[index]" alt="" class="itemIcon"> 
+                </td>
+                <td class="px-6 py-3 whitespace-nowrap" v-if="langFlag=='JP'">
+                  {{alkahestNameJP[index]}}
+                </td>
+                <td class="px-6 py-3 whitespace-nowrap" v-if="langFlag=='EN'">
+                  {{alkahestNameEN[index]}}
+                </td>
+                <td class="px-6 py-3 whitespace-nowrap">
+                  {{alkahest[index]}}
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
-      <div class="card">
+      <div class="card w-fit h-fit">
         <div class="card-header">
           <span>灵砂</span>
         </div>
-        <div class="card-body grid grid-rows-3 grid-flow-col gap-2">
-            <img src="./assets/Endstone.png" alt="" class="itemIcon">
-            <img src="./assets/Endwood.png" alt="" class="itemIcon">
-            <img src="./assets/Endtide.png" alt="" class="itemIcon">
-          <div v-for="(name,index) in aethersandNameJP" v-if="langFlag=='JP'">
-            {{name}} - {{aethersand[index]}}
-          </div>
-          <div v-for="(name,index) in aethersandNameEN" v-if="langFlag=='EN'">
-            {{name}} - {{aethersand[index]}}
-          </div>
+        <div class="card-body">
+          <table class="min-w-full divide-y divide-gray-200">
+            <tbody class="divide-y divide-gray-200">
+              <tr v-for="(name,index) in aethersandNameEN"  class="item">
+                <td class="px-6 py-3 whitespace-nowrap">
+                  <img :src="aethersandIcon[index]" alt="" class="itemIcon"> 
+                </td>
+                <td class="px-6 py-3 whitespace-nowrap" v-if="langFlag=='JP'">
+                  {{aethersandNameJP[index]}}
+                </td>
+                <td class="px-6 py-3 whitespace-nowrap" v-if="langFlag=='EN'">
+                  {{aethersandNameEN[index]}}
+                </td>
+                <td class="px-6 py-3 whitespace-nowrap">
+                  {{aethersand[index]}}
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
-      </div>
-      <div class="card">
-        <el-button @click="changeLang()">点我切换语言！</el-button>
-        <el-button @click="changeDark()">暗黑模式</el-button>
       </div>
       </div>
     </div>
@@ -386,12 +433,12 @@ export default defineComponent({
 }
 
 .card {
-  @apply bg-white text-gray-800 rounded-lg shadow-lg min-w-fit; 
+  @apply bg-white text-gray-800 rounded-2xl shadow-lg p-2; 
   @apply dark:bg-gray-800 dark:text-white dark:shadow-none dark:ring-1 dark:ring-inset dark:ring-white/10 
 }
 .card-header {
-  @apply bg-gray-100 border-b-2 py-3 px-3;
-  @apply dark:bg-gray-800 dark:border-white/5
+  @apply bg-blue-100 py-2 px-4 rounded-lg text-blue-900 font-medium text-sm;
+  @apply dark:bg-blue-900 dark:text-blue-50
 }
 .card-body {
   @apply py-3 px-3 
@@ -405,6 +452,12 @@ export default defineComponent({
   @apply bg-gray-100;
   @apply dark:bg-gray-700
 }
+.btn-header {
+  @apply mx-2
+}
+.btn-header:hover {
+  @apply text-blue-500
+}
 .active { 
   @apply bg-gray-100 text-blue-500 font-bold;
   @apply dark:bg-gray-700 dark:text-gray-100 dark:ring-1 dark:ring-inset dark:ring-white;
@@ -413,7 +466,13 @@ export default defineComponent({
 .role {
   @apply grid grid-cols-1 place-items-center
 }
+.item {
+  @apply text-sm
+}
+.item:hover {
+  @apply bg-gray-100 dark:bg-gray-600
+}
 .itemIcon {
-  @apply w-10
+  @apply w-8
 }
 </style>

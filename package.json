@@ -1,6 +1,6 @@
 {
   "name": "ffxiv_580_helper",
-  "version": "0.0.0",
+  "version": "1.0 Alpha",
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",

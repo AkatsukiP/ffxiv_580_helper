@@ -1,6 +1,6 @@
 # FFXIV 580 Helper
 
-Still working on it...
+最近比较忙，该项目暂时搁置。大概八月份之后回来准备好好做一下。
 
 ## License
 
